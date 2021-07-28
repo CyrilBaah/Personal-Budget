@@ -2,27 +2,32 @@ const envelopes = [
     {
       id: 1,
       category: 'Groceries',
-      balance: 400,
+      totalAmount: 400,
+      spendingLimit: 350
     },
     {
       id: 2,
       category: 'Rent',
-      balance: 100,
+      totalAmount: 100,
+      spendingLimit: 90
     },
     {
       id: 3,
       category: 'Health',
-      balance: 150,
+      totalAmount: 150,
+      spendingLimit: 100
     },
     {
       id: 4,
       category: 'Investment',
-      balance: 200,
+      totalAmount: 200,
+      spendingLimit: 150,
     },
     {
       id: 5,
       category: 'Clothing',
-      balance: 100,
+      totalAmount: 200,
+      spendingLimit: 150,
     }
   ];
   
