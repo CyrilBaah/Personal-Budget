@@ -32,5 +32,6 @@ const envelopes = [
   ];
   
   let totalBudget = 2000;
+  let envelopeID = envelopes.length;
   
-  module.exports = { envelopes, totalBudget};
+  module.exports = { envelopes, totalBudget, envelopeID};
