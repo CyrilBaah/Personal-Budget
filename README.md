@@ -4,9 +4,9 @@ Using Envelope [Enveloping Budgeting](https://www.thebalance.com/what-is-envelop
 The API allow users to manage budget envelopes and track the balance of each envelope.
 
 # Routes
-**GET** `/api/envelopes/` Get all single envelopes
-**GET** `/api/envelopes/:id` Get a single envelope
-**POST** `/api/envelopes/` Add a new envelope
-**PUT** `/api/envelopes/:id/withdraw/:amount` Withdraw from a specific envelope
-**PUT** `/api/envelopes/:id/deposit/:amount` Deposit into a specific envelope
+* **GET** `/api/envelopes/` Get all single envelopes
+* **GET** `/api/envelopes/:id` Get a single envelope
+* **POST** `/api/envelopes/` Add a new envelope
+* **PUT** `/api/envelopes/:id/withdraw/:amount` Withdraw from a specific envelope
+* **PUT** `/api/envelopes/:id/deposit/:amount` Deposit into a specific envelope
 
