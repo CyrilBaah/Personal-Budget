@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { envelopes, envelopeID } = require('./data');
+const {
+    envelopes
+} = require('./data');
 const bodyParser = require('body-parser');
 
 
@@ -29,8 +31,13 @@ router.get('/api/envelopes/:id', (req, res) => {
     res.json(singleEnvelope);
 });
 
+// POST - Create a new envelope
 router.post('/api/envelopes', (req, res) => {
-    const { category, totalAmount, spendingLimit } = req.body;
+    const {
+        category,
+        totalAmount,
+        spendingLimit
+    } = req.body;
 
     if (typeof category !== 'string' || typeof totalAmount !== 'number' || typeof spendingLimit !== 'number') {
         res.status(400).send({
@@ -46,28 +53,61 @@ router.post('/api/envelopes', (req, res) => {
         });
     }
 
-    envelopes.push({ id:envelopes.length + 1, category, totalAmount, spendingLimit });
-    res.status(200).json({ success: true, message: envelopes })
+    envelopes.push({
+        id: envelopes.length + 1,
+        category,
+        totalAmount,
+        spendingLimit
+    });
+    res.status(200).json({
+        success: true,
+        message: envelopes
+    })
 
 })
 
-// PUT - Update a single envelope
-// router.put('/api/envelopes/:id', (req, res) => {
-//     const id = Number(req.params.id);
+// PUT - To withdraw from an envelope
+router.put('/api/envelopes/:id/withdraw/:amount', (req, res) => {
+    const id = Number(req.params.id);
+    const amount = Number(req.params.amount)
 
-//     const { category, totalAmount, spendingLimit } = req.body;
+    const envelopeID = envelopes.find((envelope) => envelope.id === id);
 
-//     if(typeof category !== 'string' || typeof totalAmount !== 'number' || typeof spendingLimit !== 'number'){
-//         res.status(400).send({success: false, message: 'Not all keys are present!'});
-//     }
+    if (!envelopeID) {
+        res.status(404).send({
+            success: false,
+            message: `Envelope Number ${id} doesn't exist`
+        });
+    }
 
-//     if(totalAmount < 0 || spendingLimit < 0 ){
-//         res.status(400).send({success: false, message: 'Negative numbers are not allowed'});
-//     }
+    if(envelopeID.totalAmount > amount){
+        console.log(`${envelopeID.totalAmount} > ${amount}`);
+        envelopeID.totalAmount -= amount;
+        res.status(200).json(envelopeID);
+    }else{
+        console.log('wrong');
+    }
+});
 
-//     envelopes.push({ category, totalAmount, spendingLimit });
-//     res.status(200).json(envelopes);
-// })
+// PUT - To withdraw from an envelope
+router.put('/api/envelopes/:id/deposit/:amount', (req, res) => {
+    const id = Number(req.params.id);
+    const amount = Number(req.params.amount)
+
+    const envelopeID = envelopes.find((envelope) => envelope.id === id);
+
+    if (!envelopeID) {
+        res.status(404).send({
+            success: false,
+            message: `Envelope Number ${id} doesn't exist`
+        });
+    }
+
+    envelopeID.totalAmount += amount;
+    res.status(200).json(envelopeID);
+
+});
+
 
 
 // Throw Error for a wrong url
