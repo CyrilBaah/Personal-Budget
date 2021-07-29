@@ -46,15 +46,7 @@ router.post('/api/envelopes', (req, res) => {
         });
     }
 
-    envelopes.push({ category, totalAmount, spendingLimit });
-    // Work on adding new ID to envelop
-    // let newID = parseInt(envelopeID);
-    // newID = newID + 1 ;
-    // let newEnvelope = {
-    //     id: newID,
-    //      category, totalAmount, spendingLimit 
-    // }
-    envelopes.push(newEnvelope);
+    envelopes.push({ id:envelopes.length + 1, category, totalAmount, spendingLimit });
     res.status(200).json({ success: true, message: envelopes })
 
 })
