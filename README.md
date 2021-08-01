@@ -9,4 +9,5 @@ The API allow users to manage budget envelopes and track the balance of each env
 * **POST** `/api/envelopes/` Add a new envelope
 * **PUT** `/api/envelopes/:id/withdraw/:amount` Withdraw from a specific envelope
 * **PUT** `/api/envelopes/:id/deposit/:amount` Deposit into a specific envelope
+* **PUT** `/api/envelopes/:id` Update a single envelope 
 

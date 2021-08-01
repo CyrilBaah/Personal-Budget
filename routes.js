@@ -80,11 +80,11 @@ router.put('/api/envelopes/:id/withdraw/:amount', (req, res) => {
         });
     }
 
-    if(envelopeID.totalAmount > amount){
+    if (envelopeID.totalAmount > amount) {
         console.log(`${envelopeID.totalAmount} > ${amount}`);
         envelopeID.totalAmount -= amount;
         res.status(200).json(envelopeID);
-    }else{
+    } else {
         console.log('wrong');
     }
 });
@@ -107,6 +107,54 @@ router.put('/api/envelopes/:id/deposit/:amount', (req, res) => {
     res.status(200).json(envelopeID);
 
 });
+
+// PUT - Update a single envelope
+router.put('/api/envelopes/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const {
+        category,
+        totalAmount,
+        spendingLimit
+    } = req.body;
+
+    const envelope = envelopes.find((envelope) => envelope.id === id);
+
+    if (!envelope) {
+        res.status(404).send({
+            success: false,
+            message: `Envelope Number ${id} doesn't exist`
+        });
+    }
+
+    envelope.id = id,
+        envelope.category = category;
+    envelope.totalAmount = totalAmount;
+    envelope.spendingLimit = spendingLimit;
+
+    res.status(200).json({
+        success: true,
+        message: envelopes
+    })
+});
+
+router.delete('/api/envelopes/:id', (req, res) => {
+    const id = Number(req.params.id);
+
+    const index = envelopes.findIndex((envelope) => envelope.id === id);
+
+    if (index === -1) {
+        res.status(404).send({
+            success: false,
+            message: `Envelope Number ${id} doesn't exist`
+        });
+    } else {
+        const result = envelopes.splice(index, 1);
+        res.status(200).json({
+            success: true,
+            message: result
+        })
+    }
+})
 
 
 
