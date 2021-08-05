@@ -11,4 +11,4 @@ The API allow users to manage budget envelopes and track the balance of each env
 * **PUT** `/api/envelopes/:id/deposit/:amount` Deposit into a specific envelope
 * **PUT** `/api/envelopes/:id` Update a single envelope 
 * **DELETE** `/api/envelopes/:id` Delete a single envelope 
-
+* **PUT** `/api/envelopes/:id/transfer/:amount/transferId/:recieverId` Transfer amount from one envelope to another

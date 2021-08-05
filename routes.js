@@ -81,7 +81,6 @@ router.put('/api/envelopes/:id/withdraw/:amount', (req, res) => {
     }
 
     if (envelopeID.totalAmount > amount) {
-        console.log(`${envelopeID.totalAmount} > ${amount}`);
         envelopeID.totalAmount -= amount;
         res.status(200).json(envelopeID);
     } else {
@@ -156,6 +155,30 @@ router.delete('/api/envelopes/:id', (req, res) => {
     }
 })
 
+
+router.put('/api/envelopes/:id/transfer/:amount/transferId/:recieverId', (req, res) => {
+    const id = Number(req.params.id)
+    const amount = Number(req.params.amount)
+    const recieverId = Number(req.params.recieverId)
+
+    const envelope = envelopes.find((envelope) => envelope.id === id);
+    console.log(envelope);
+    if (!envelope) {
+        res.status(404).send({
+            success: false,
+            message: `Envelope Number ${id} doesn't exist`
+        });
+    } else{
+        envelope.totalAmount -= amount;
+
+        const recieverEnvelope = envelopes.find((envelope) => envelope.id === recieverId);
+        recieverEnvelope.totalAmount += amount;
+        res.status(200).json({
+            success: true,
+            message: recieverEnvelope
+        })
+    }
+})
 
 
 // Throw Error for a wrong url
